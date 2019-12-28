@@ -134,7 +134,3 @@ dmypy.json
 .idea/misc.xml
 .idea/modules.xml
 .idea/pyftpd.iml
-pyftpd.py
-readme.md
-requirements.txt
-requirements/
