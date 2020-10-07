@@ -134,3 +134,6 @@ dmypy.json
 .idea/misc.xml
 .idea/modules.xml
 .idea/pyftpd.iml
+build
+dist
+venv
