@@ -6,6 +6,7 @@ import sys
 import tkinter as tk
 import tkinter.font as tkFont
 import threading
+import socket
 
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
@@ -96,7 +97,7 @@ def ftpd(showlabel):
     # server = MultiprocessFTPServer(address, handler)
     # set a limit for connections
     server.max_cons = 256
-    server.max_cons_per_ip = 5
+    server.max_cons_per_ip = 6
 
     # start ftp server
     # server.serve_forever()
@@ -111,15 +112,18 @@ def btnExit():
 if __name__ == '__main__':
 
     root = tk.Tk()
-    root.geometry("900x600")
-    root.title("Awooa出品的自用ftp服务端工具")
-    label = tk.Label(root, text='提供ftp服务给外部系统',
-                     fg='#0000CD',
-                     pady=200,
-                     font=tkFont.Font(size=40))
+    root.geometry("900x600+200+100")
 
-    ftpd(label)
-    label.pack()
+    ip = socket.gethostbyname_ex(socket.gethostname())[-1][-1]
+    root.title("Awooa出品的自用ftp服务端工具")
+    tk.Label(root, text='提供ftp服务给外部系统', fg='#0000CD', pady=20, font=tkFont.Font(size=40)).pack()
+    tk.Label(root, text='侦听' + ip + ' 端口号：2121',
+                     fg='#0000CD',
+                     font=tkFont.Font(size=40)).pack()
+
+    statuslabel = tk.Label(root, text='等待客户端连接...', pady=100, font=tkFont.Font(size=30))
+    ftpd(statuslabel)
+    statuslabel.pack()
 
     pixelVirtual = tk.PhotoImage(width=1, height=1)
     tk.Button(root, text='退 出',font=tkFont.Font(size=30),
